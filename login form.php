@@ -19,6 +19,9 @@
   </head>
   <body>
     <br><br>
+    <img src="https://img.freepik.com/free-vector/detailed-travel-logo_23-2148616611.jpg"alt="logo"style="height:100px">
+    <center><h1 style="color:red">PHP TASK TRAVELS</h1></center>
+    <br><br>
     <center><h1><b>Login </b></h1>
         <br><br>
         <form>
