@@ -1,6 +1,5 @@
-
 <?php
-$connect = mysqli_connect("localhost","root","","db");
+$connect = mysqli_connect("localhost","root","","");
 $output = "";
 if(isset($_POST['search'])){
     $input=$_POST['input'];
@@ -39,7 +38,8 @@ if(isset($_POST['search'])){
 
     }
 }
-?><!doctype html>
+?>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -79,7 +79,7 @@ if(isset($_POST['search'])){
                 Servises
               </button> 
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="building equipments.html"></a>&nbsp About us</li>
+                <li><a class="dropdown-item" href="building equipments.html"></a>&nbsp &nbsp About us</li>
                 <li><a class="dropdown-item" href="nuclear power plants.html">details </a></li>
                 <li><a class="dropdown-item" href="auto mobiles.html">contact us</a></li>
             </ul>
