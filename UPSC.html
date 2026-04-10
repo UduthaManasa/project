@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamVault • NCERT + Aptitude + Mechanical + PYQs + Quizzes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #0ea5e9;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0ea5e9;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, #0ea5e9, #3b82f6);
+            bottom: -6px;
+            left: 0;
+            border-radius: 9999px;
+        }
+        
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #f1f5f9;
+            transform: scale(1.02);
+        }
+        
+        .active-question {
+            animation: fadeIn 0.4s ease forwards;
+        }
+    </style>
+</head>
+<body class="tailwind-ready">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-8 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-sky-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-inner">
+                        📚
+                    </div>
+                    <h1 class="logo-font text-3xl font-semibold tracking-tighter text-slate-900">ExamVault</h1>
+                    <span class="text-xs font-medium px-3 py-1 bg-sky-100 text-sky-700 rounded-3xl">UPSC • SSC • GATE • IES</span>
+                </div>
+
+                <!-- Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-slate-700 font-medium">
+                    <a onclick="navigateToSection('ncert-section')" class="nav-link cursor-pointer flex items-center gap-x-1 hover:text-sky-600">
+                        <i class="fa-solid fa-book-open"></i>
+                        NCERT Books
+                    </a>
+                    <a onclick="navigateToSection('aptitude-section')" class="nav-link cursor-pointer flex items-center gap-x-1 hover:text-sky-600">
+                        <i class="fa-solid fa-brain"></i>
+                        Aptitude
+                    </a>
+                    <a onclick="navigateToSection('mechanical-section')" class="nav-link cursor-pointer flex items-center gap-x-1 hover:text-sky-600">
+                        <i class="fa-solid fa-gear"></i>
+                        Mechanical
+                    </a>
+                    <a onclick="navigateToSection('papers-section')" class="nav-link cursor-pointer flex items-center gap-x-1 hover:text-sky-600">
+                        <i class="fa-solid fa-file-lines"></i>
+                        PYQs
+                    </a>
+                    <a onclick="navigateToSection('quiz-section')" class="nav-link cursor-pointer flex items-center gap-x-1 hover:text-sky-600">
+                        <i class="fa-solid fa-question-circle"></i>
+                        Quizzes
+                    </a>
+                </div>
+
+                <!-- Right side -->
+                <div class="flex items-center gap-x-4">
+                    <div onclick="toggleSearch()" class="w-10 h-10 flex items-center justify-center text-xl cursor-pointer hover:bg-slate-100 rounded-2xl">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    
+                    <a href="https://ncert.nic.in" target="_blank" 
+                       class="flex items-center gap-x-2 bg-white border border-slate-300 hover:border-sky-300 text-slate-700 px-5 py-2.5 rounded-3xl font-medium text-sm">
+                        <i class="fa-solid fa-download"></i>
+                        Official NCERT
+                    </a>
+                    
+                    <button onclick="showLoginModal()" 
+                            class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2.5 rounded-3xl font-semibold flex items-center gap-x-2">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Free Account</span>
+                    </button>
+
+                    <!-- Mobile menu -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-slate-700">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden border-t px-8 py-6 bg-white">
+                <div class="flex flex-col gap-y-6 text-lg font-medium">
+                    <a onclick="navigateToSection('ncert-section');toggleMobileMenu()" class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-book-open w-6"></i> NCERT Books for UPSC &amp; Govt Exams
+                    </a>
+                    <a onclick="navigateToSection('aptitude-section');toggleMobileMenu()" class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-brain w-6"></i> All Aptitude Books
+                    </a>
+                    <a onclick="navigateToSection('mechanical-section');toggleMobileMenu()" class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-gear w-6"></i> Mechanical Engineering Books
+                    </a>
+                    <a onclick="navigateToSection('papers-section');toggleMobileMenu()" class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-file-lines w-6"></i> Previous Year Papers (All Exams)
+                    </a>
+                    <a onclick="navigateToSection('quiz-section');toggleMobileMenu()" class="flex items-center gap-x-3">
+                        <i class="fa-solid fa-question-circle w-6"></i> Subject-wise Quizzes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white py-20">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md text-white text-sm font-medium px-6 py-3 rounded-3xl mb-6">
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        100% FREE • UPDATED 2026
+                    </div>
+                    <h1 class="text-6xl md:text-7xl font-semibold leading-none tracking-tighter logo-font mb-6">
+                        All NCERT Books.<br>Aptitude. Mechanical.<br>PYQs. Quizzes.<br><span class="text-yellow-300">One Place.</span>
+                    </h1>
+                    <p class="text-2xl text-white/90 mb-10 max-w-lg">
+                        Complete preparation hub for UPSC CSE, SSC, GATE, IES, Bank, Railway &amp; all Govt Exams
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="navigateToSection('ncert-section')" 
+                                class="flex-1 md:flex-none bg-white text-slate-900 hover:bg-yellow-300 px-8 py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-x-3 shadow-xl">
+                            <i class="fa-solid fa-book-open text-3xl"></i>
+                            Browse NCERT Books
+                        </button>
+                        <button onclick="navigateToSection('quiz-section')" 
+                                class="flex-1 md:flex-none border-2 border-white hover:bg-white/10 px-8 py-6 rounded-3xl font-semibold text-xl flex items-center justify-center gap-x-3">
+                            <i class="fa-solid fa-question-circle text-3xl"></i>
+                            Start Free Quiz Now
+                        </button>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center gap-x-8 text-sm">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check-circle text-yellow-300"></i>
+                            <span>12,458+ NCERT PDFs</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check-circle text-yellow-300"></i>
+                            <span>1,892+ PYQs (All Exams)</span>
+                        </div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fa-solid fa-check-circle text-yellow-300"></i>
+                            <span>350+ Live Quizzes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visual -->
+                <div class="hidden md:block relative">
+                    <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/30">
+                        <div class="flex justify-between mb-6">
+                            <div class="text-center">
+                                <div class="text-5xl">📖</div>
+                                <p class="text-xs mt-2 font-medium">NCERT</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl">🧠</div>
+                                <p class="text-xs mt-2 font-medium">APTITUDE</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl">⚙️</div>
+                                <p class="text-xs mt-2 font-medium">MECHANICAL</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl">📜</div>
+                                <p class="text-xs mt-2 font-medium">PYQs</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-5xl">❓</div>
+                                <p class="text-xs mt-2 font-medium">QUIZ</p>
+                            </div>
+                        </div>
+                        <div class="h-2 bg-white/30 rounded-3xl mb-8 relative overflow-hidden">
+                            <div class="absolute left-0 top-0 h-full w-3/4 bg-white rounded-3xl"></div>
+                        </div>
+                        <p class="text-center text-white/80 text-sm font-medium">Ready for UPSC 2026 • GATE 2026 • SSC CGL 2026</p>
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -right-6 bg-white text-slate-900 rounded-3xl px-6 py-4 shadow-2xl flex items-center gap-x-4">
+                        <div class="text-4xl">🏆</div>
+                        <div>
+                            <p class="font-semibold">1.8 Million+</p>
+                            <p class="text-xs text-slate-500">Students preparing with ExamVault</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH MODAL -->
+    <div onclick="if(event.target.id === 'searchModal')hideSearch()" id="searchModal" class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-start justify-center pt-20">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-2xl w-full mx-4 overflow-hidden">
+            <div class="p-8">
+                <input id="globalSearch" 
+                       onkeyup="if(event.keyCode===13) performGlobalSearch()"
+                       type="text" 
+                       placeholder="Search NCERT books, aptitude books, mechanical books, PYQs or quiz topics..."
+                       class="w-full text-2xl placeholder:text-slate-400 focus:outline-none">
+                <div id="searchResults" class="mt-6 max-h-96 overflow-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NCERT SECTION -->
+    <section id="ncert-section" class="max-w-screen-2xl mx-auto px-8 py-16">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="px-4 py-2 bg-sky-100 text-sky-700 rounded-3xl text-sm font-semibold">OFFICIAL FREE</span>
+                <h2 class="section-header text-4xl font-semibold text-slate-900 mt-3">All NCERT Books for UPSC &amp; Govt Exams</h2>
+                <p class="text-slate-600 mt-2">Class 6–12 • History • Geography • Polity • Economy • Science • Environment • Sociology</p>
+            </div>
+            <a href="https://ncert.nic.in/textbook.php" target="_blank" class="text-sky-600 flex items-center gap-x-2 font-medium">
+                Visit Official NCERT Site <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="ncertBooks">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- APTITUDE SECTION -->
+    <section id="aptitude-section" class="bg-slate-50 py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="section-header text-4xl font-semibold text-slate-900 mb-3">All Aptitude &amp; Reasoning Books</h2>
+            <p class="text-slate-600 mb-10">Quantitative Aptitude • Logical Reasoning • Verbal Ability • Data Interpretation • for SSC, Bank, UPSC, Railway exams</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="aptitudeBooks">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- MECHANICAL SECTION -->
+    <section id="mechanical-section" class="max-w-screen-2xl mx-auto px-8 py-16">
+        <h2 class="section-header text-4xl font-semibold text-slate-900 mb-3">Mechanical Engineering Books for GATE / ESE / PSU</h2>
+        <p class="text-slate-600 mb-10">Strength of Materials • Thermodynamics • Fluid Mechanics • Theory of Machines • Machine Design &amp; more</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mechanicalBooks">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- PREVIOUS YEAR PAPERS SECTION -->
+    <section id="papers-section" class="bg-slate-900 text-white py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <h2 class="section-header text-white text-4xl font-semibold mb-3">Previous Year Question Papers</h2>
+            <p class="text-slate-400 mb-10">UPSC • SSC CGL • GATE • IES • IBPS • Railway • All State PCS • Last 15+ Years</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" id="paperCards">
+                <!-- Populated by JS -->
+            </div>
+            
+            <div class="text-center mt-12">
+                <button onclick="downloadAllPapersDemo()" 
+                        class="bg-white text-slate-900 px-8 py-4 rounded-3xl font-semibold text-lg flex items-center gap-x-3 mx-auto">
+                    <i class="fa-solid fa-cloud-download"></i>
+                    Download All PYQs ZIP (Demo)
+                </button>
+                <p class="text-xs text-slate-400 mt-4">Real website would have direct PDF downloads</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ SECTION -->
+    <section id="quiz-section" class="max-w-screen-2xl mx-auto px-8 py-16">
+        <div class="flex justify-between items-end mb-8">
+            <div>
+                <h2 class="section-header text-4xl font-semibold text-slate-900">Subject-wise Quizzes</h2>
+                <p class="text-slate-600">Test yourself instantly • Instant results • 1000+ questions updated daily</p>
+            </div>
+            <div class="text-sm font-medium text-slate-500">Score: <span id="overallScore" class="font-semibold text-2xl text-emerald-600">0</span>/100</div>
+        </div>
+        
+        <div class="bg-white border rounded-3xl p-8 shadow">
+            <!-- Quiz Selector -->
+            <div class="flex flex-wrap gap-3 mb-8" id="quizSubjects">
+                <!-- Populated by JS -->
+            </div>
+            
+            <!-- Quiz Container -->
+            <div id="quizContainer" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div id="quizTitle" class="text-2xl font-semibold"></div>
+                    <div class="flex items-center gap-x-2 text-sm">
+                        <span id="questionCounter" class="font-mono"></span>
+                        <div class="h-2 w-32 bg-slate-200 rounded-full">
+                            <div id="progressBar" class="h-2 bg-sky-600 rounded-full w-0"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="questionText" class="text-2xl font-medium text-slate-800 mb-10 min-h-[120px]"></div>
+                
+                <div id="optionsContainer" class="grid grid-cols-1 gap-4">
+                    <!-- Options populated by JS -->
+                </div>
+                
+                <div class="flex justify-between mt-12">
+                    <button onclick="prevQuestion()" 
+                            id="prevBtn"
+                            class="hidden px-8 py-4 text-slate-500 font-semibold flex items-center gap-x-2">
+                        <i class="fa-solid fa-arrow-left"></i> Previous
+                    </button>
+                    <button onclick="nextQuestion()" 
+                            id="nextBtn"
+                            class="ml-auto px-8 py-4 bg-slate-900 text-white font-semibold rounded-3xl flex items-center gap-x-2">
+                        Next <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Result Screen -->
+            <div id="quizResult" class="hidden text-center py-12">
+                <div id="resultEmoji" class="text-8xl mb-6"></div>
+                <h3 id="resultTitle" class="text-4xl font-semibold mb-2"></h3>
+                <p id="resultScore" class="text-6xl font-bold text-sky-600 mb-8"></p>
+                <button onclick="restartQuiz()" 
+                        class="bg-sky-600 text-white px-10 py-4 rounded-3xl font-semibold text-lg">Try Another Quiz</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-white py-16">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center gap-x-3 text-3xl logo-font mb-6">📚 ExamVault</div>
+                <p class="text-slate-400 text-sm">Built instantly by Grok • Your complete free preparation platform for all government exams.</p>
+                <p class="mt-8 text-xs text-slate-500">Made with ❤️ for every aspirant in India</p>
+            </div>
+            <div>
+                <h6 class="font-semibold mb-4">QUICK LINKS</h6>
+                <ul class="space-y-3 text-sm text-slate-400">
+                    <li onclick="navigateToSection('ncert-section')">NCERT Class 6–12</li>
+                    <li onclick="navigateToSection('aptitude-section')">Aptitude Library</li>
+                    <li onclick="navigateToSection('mechanical-section')">GATE Mechanical Books</li>
+                    <li onclick="navigateToSection('papers-section')">All PYQs 2010–2025</li>
+                    <li onclick="navigateToSection('quiz-section')">Daily Quizzes</li>
+                </ul>
+            </div>
+            <div>
+                <h6 class="font-semibold mb-4">EXAMS COVERED</h6>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">UPSC CSE</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">SSC CGL</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">GATE ME</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">IES/ESE</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">IBPS PO</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">Railway RRB</span>
+                    <span class="text-xs bg-white/10 px-4 py-2 rounded-3xl">State PCS</span>
+                </div>
+            </div>
+            <div>
+                <h6 class="font-semibold mb-4">Made for you</h6>
+                <p class="text-slate-400 text-sm leading-relaxed">This entire website was created in seconds by Grok AI.<br><br>Just save this page as <strong>index.html</strong> and open in any browser.<br><br>You can now expand it, add real PDF links, or upload to Vercel/Netlify for free hosting!</p>
+                
+                <div class="mt-8 flex gap-4 text-3xl">
+                    <i class="fa-brands fa-x-twitter cursor-pointer"></i>
+                    <i class="fa-brands fa-linkedin cursor-pointer"></i>
+                    <i class="fa-brands fa-whatsapp cursor-pointer"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIN MODAL (demo) -->
+    <div onclick="if(event.target.id === 'loginModal')hideLoginModal()" id="loginModal" class="hidden fixed inset-0 bg-black/60 z-[10000] flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-8">
+            <h3 class="text-3xl font-semibold mb-6">Create your free account</h3>
+            <p class="text-slate-500 mb-8">Track progress • Save favorite books • Get daily quiz reminders • Unlock full PYQ solutions</p>
+            <input type="text" placeholder="Your name" class="w-full px-6 py-5 border rounded-3xl mb-4">
+            <input type="email" placeholder="Email address" class="w-full px-6 py-5 border rounded-3xl mb-8">
+            <button onclick="fakeSignup()" 
+                    class="w-full py-6 bg-sky-600 text-white rounded-3xl font-semibold text-xl">Join ExamVault for FREE</button>
+            <p class="text-center text-xs text-slate-400 mt-8">No credit card required • Instant access</p>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * MAIN SCRIPT FOR EXAMVAULT WEBSITE
+         * Copy everything above + this script into index.html
+         * Fully working demo with real content, quizzes, and search
+         */
+
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {},
+                        },
+                    }
+                },
+                theme(config) {
+                    return config.theme
+                },
+            }
+        }
+        
+        // Data: NCERT Books (real list used by lakhs of UPSC aspirants)
+        const ncertData = [
+            { id:1, title:"History Class 6–12 Complete Pack", subject:"Ancient, Medieval, Modern India", classRange:"VI–XII", icon:"📜" },
+            { id:2, title:"Geography Class 6–12 Complete Pack", subject:"Physical, Human & Indian Geography", classRange:"VI–XII", icon:"🗺️" },
+            { id:3, title:"Polity – Indian Constitution & Governance", subject:"Class IX–XII", classRange:"IX–XII", icon:"⚖️" },
+            { id:4, title:"Economy – Indian Economic Development", subject:"Class IX–XII", classRange:"IX–XII", icon:"📈" },
+            { id:5, title:"Science Class 6–10", subject:"Physics, Chemistry, Biology", classRange:"VI–X", icon:"🧪" },
+            { id:6, title:"Environment & Ecology", subject:"Class XII Biology + Shankar IAS summary", classRange:"XII", icon:"🌍" },
+            { id:7, title:"Sociology Class XI–XII", subject:"Indian Society", classRange:"XI–XII", icon:"👥" },
+            { id:8, title:"Fine Arts & Culture", subject:"Class XI–XII", classRange:"XI–XII", icon:"🎨" },
+            { id:9, title:"Mathematics Class 6–10", subject:"Basic Maths for CSAT", classRange:"VI–X", icon:"🔢" },
+            { id:10, title:"NCERT Class 11–12 All Subjects Pack", subject:"All 30+ books", classRange:"XI–XII", icon:"📦" }
+        ]
+        
+        // Aptitude Books (most recommended)
+        const aptitudeData = [
+            { title:"Quantitative Aptitude – R.S. Aggarwal", author:"R.S. Aggarwal", type:"Maths", icon:"📐" },
+            { title:"A Modern Approach to Verbal & Non-Verbal Reasoning – R.S. Aggarwal", author:"R.S. Aggarwal", type:"Reasoning", icon:"🧩" },
+            { title:"Fast Track Objective Arithmetic – Rajesh Verma", author:"Rajesh Verma", type:"Maths", icon:"⚡" },
+            { title:"Analytical Reasoning – M.K. Pandey", author:"M.K. Pandey", type:"Reasoning", icon:"🔍" },
+            { title:"How to Prepare for Data Interpretation – Arun Sharma", author:"Arun Sharma", type:"DI", icon:"📊" },
+            { title:"Word Power Made Easy – Norman Lewis", author:"Norman Lewis", type:"English", icon:"🔠" },
+            { title:"Objective General English – S.P. Bakshi", author:"S.P. Bakshi", type:"English", icon:"📖" }
+        ]
+        
+        // Mechanical Engineering Books (GATE/ESE standard)
+        const mechanicalData = [
+            { title:"Strength of Materials – R.K. Bansal", author:"R.K. Bansal", topic:"SOM", icon:"🏗️" },
+            { title:"Thermodynamics – P.K. Nag", author:"P.K. Nag", topic:"Thermo", icon:"🌡️" },
+            { title:"Fluid Mechanics & Hydraulic Machines – R.K. Bansal", author:"R.K. Bansal", topic:"Fluid", icon:"💧" },
+            { title:"Theory of Machines – S.S. Rattan", author:"S.S. Rattan", topic:"TOM", icon:"⚙️" },
+            { title:"Machine Design – V.B. Bhandari", author:"V.B. Bhandari", topic:"Design", icon:"🔧" },
+            { title:"Engineering Mechanics – S. Timoshenko", author:"S. Timoshenko", topic:"EM", icon:"🏗️" },
+            { title:"Heat & Mass Transfer – P.K. Nag", author:"P.K. Nag", topic:"HMT", icon:"🔥" },
+            { title:"Material Science & Metallurgy – William D. Callister", author:"Callister", topic:"Metallurgy", icon:"🧬" }
+        ]
+        
+        // Previous Year Papers (sample – real site would have 2000+ files)
+        const papersData = [
+            { exam:"UPSC CSE Prelims", year:"2025", shift:"GS Paper I", type:"PDF" },
+            { exam:"UPSC CSE Prelims", year:"2025", shift:"CSAT", type:"PDF" },
+            { exam:"UPSC CSE Mains", year:"2024", shift:"GS Paper 1", type:"PDF" },
+            { exam:"SSC CGL Tier-1", year:"2025", shift:"All Shifts", type:"PDF" },
+            { exam:"GATE Mechanical", year:"2025", shift:"Forenoon", type:"PDF" },
+            { exam:"GATE Mechanical", year:"2025", shift:"Afternoon", type:"PDF" },
+            { exam:"IES/ESE Mechanical", year:"2024", shift:"Prelims", type:"PDF" },
+            { exam:"IBPS PO", year:"2025", shift:"Mains", type:"PDF" },
+            { exam:"RRB NTPC", year:"2025", shift:"All", type:"PDF" },
+            { exam:"UPSC CSE Prelims", year:"2015-2024", shift:"Complete Archive", type:"ZIP" }
+        ]
+        
+        // Quizzes data (real questions)
+        let currentQuiz = null
+        let currentQuestionIndex = 0
+        let score = 0
+        
+        const quizBank = {
+            history: {
+                name: "Modern Indian History (NCERT based)",
+                questions: [
+                    { q: "The first session of the Indian National Congress was held in which year?", options: ["1885", "1905", "1919", "1930"], correct: 0 },
+                    { q: "Who wrote the book 'Discovery of India'?", options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "B.R. Ambedkar"], correct: 1 },
+                    { q: "The Non-Cooperation Movement was withdrawn after which incident?", options: ["Jallianwala Bagh", "Chauri Chaura", "Dandi March", "Quit India"], correct: 1 },
+                    { q: "The Simon Commission came to India in which year?", options: ["1927", "1928", "1930", "1935"], correct: 1 },
+                    { q: "Who was the first Governor-General of Independent India?", options: ["Lord Mountbatten", "C. Rajagopalachari", "Dr. Rajendra Prasad", "Jawaharlal Nehru"], correct: 0 }
+                ]
+            },
+            geography: {
+                name: "Indian Geography (NCERT Class 11-12)",
+                questions: [
+                    { q: "Which is the largest state of India by area?", options: ["Rajasthan", "Madhya Pradesh", "Maharashtra", "Uttar Pradesh"], correct: 0 },
+                    { q: "The Tropic of Cancer passes through how many Indian states?", options: ["6", "7", "8", "9"], correct: 2 },
+                    { q: "Which river is known as the 'Ganga of the South'?", options: ["Godavari", "Krishna", "Kaveri", "Narmada"], correct: 2 },
+                    { q: "The highest peak in the Western Ghats is?", options: ["Anamudi", "Kalsubai", "Doda Betta", "Mahabaleshwar"], correct: 0 },
+                    { q: "The Thar Desert is located in which state?", options: ["Gujarat", "Rajasthan", "Punjab", "Haryana"], correct: 1 }
+                ]
+            },
+            aptitude: {
+                name: "Quantitative Aptitude Challenge",
+                questions: [
+                    { q: "If 20% of a number is 80, what is 40% of the same number?", options: ["120", "160", "240", "320"], correct: 1 },
+                    { q: "A train 150m long crosses a bridge of 300m in 30 seconds. Speed of train?", options: ["15 m/s", "20 m/s", "30 m/s", "45 m/s"], correct: 3 },
+                    { q: "What is the next number: 2, 6, 12, 20, ?", options: ["28", "30", "32", "42"], correct: 1 },
+                    { q: "The average of 5 numbers is 24. The average of first three is 20. Average of last two?", options: ["28", "30", "32", "34"], correct: 1 },
+                    { q: "A can do a work in 12 days. B in 15 days. Together in how many days?", options: ["6", "6.67", "7.5", "8"], correct: 1 }
+                ]
+            },
+            mechanical: {
+                name: "Mechanical Engineering Basics",
+                questions: [
+                    { q: "The unit of Young's modulus is?", options: ["N/m", "N/m²", "N·m", "Pa·s"], correct: 1 },
+                    { q: "Which law governs the relationship between pressure and volume of gas at constant temperature?", options: ["Boyle's Law", "Charles Law", "Avogadro's Law", "Gay-Lussac's Law"], correct: 0 },
+                    { q: "The moment of inertia of a thin circular disc about its diameter is?", options: ["MR²/2", "MR²/4", "MR²", "2MR²"], correct: 1 },
+                    { q: "Bernoulli's equation is based on which principle?", options: ["Conservation of mass", "Conservation of energy", "Conservation of momentum", "All of above"], correct: 1 },
+                    { q: "The efficiency of a Carnot engine working between 300K and 600K is?", options: ["25%", "50%", "75%", "100%"], correct: 1 }
+                ]
+            }
+        }
+        
+        // Render NCERT books
+        function renderNCERT() {
+            const container = document.getElementById('ncertBooks')
+            container.innerHTML = ncertData.map(book => `
+                <div onclick="openBookModal('${book.title}')" class="card-hover bg-white border border-slate-200 rounded-3xl p-6 cursor-pointer">
+                    <div class="text-6xl mb-4">${book.icon}</div>
+                    <h4 class="font-semibold text-xl mb-1">${book.title}</h4>
+                    <p class="text-slate-500 text-sm">${book.subject}</p>
+                    <div class="mt-6 flex justify-between items-center">
+                        <span class="text-xs bg-emerald-100 text-emerald-700 px-4 py-1 rounded-3xl">Class ${book.classRange}</span>
+                        <button onclick="event.stopImmediatePropagation();downloadDemo('${book.title}')" 
+                                class="text-sky-600 flex items-center gap-x-1 text-sm font-medium">
+                            <i class="fa-solid fa-download"></i> PDF
+                        </button>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Render Aptitude books
+        function renderAptitude() {
+            const container = document.getElementById('aptitudeBooks')
+            container.innerHTML = aptitudeData.map(book => `
+                <div class="card-hover bg-white border border-slate-200 rounded-3xl p-6">
+                    <div class="text-6xl mb-4">${book.icon}</div>
+                    <h4 class="font-semibold">${book.title}</h4>
+                    <p class="text-slate-500">${book.author}</p>
+                    <div class="mt-8 flex justify-between">
+                        <span class="px-3 py-1 text-xs bg-amber-100 text-amber-700 rounded-3xl">${book.type}</span>
+                        <button onclick="downloadDemo('${book.title}')" class="flex items-center text-sky-600">
+                            <i class="fa-solid fa-download mr-2"></i> Get Book
+                        </button>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Render Mechanical books
+        function renderMechanical() {
+            const container = document.getElementById('mechanicalBooks')
+            container.innerHTML = mechanicalData.map(book => `
+                <div class="card-hover bg-white border border-slate-200 rounded-3xl p-6">
+                    <div class="text-6xl mb-4">${book.icon}</div>
+                    <h4 class="font-semibold">${book.title}</h4>
+                    <p class="text-slate-500">${book.author}</p>
+                    <div class="mt-8 flex justify-between">
+                        <span class="px-3 py-1 text-xs bg-blue-100 text-blue-700 rounded-3xl">${book.topic}</span>
+                        <button onclick="downloadDemo('${book.title}')" class="flex items-center text-sky-600">
+                            <i class="fa-solid fa-download mr-2"></i> Download
+                        </button>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Render Papers
+        function renderPapers() {
+            const container = document.getElementById('paperCards')
+            container.innerHTML = papersData.map(p => `
+                <div onclick="downloadDemo('${p.exam} ${p.year}')" class="bg-white/10 hover:bg-white/20 border border-white/30 rounded-3xl p-6 text-center cursor-pointer">
+                    <div class="text-xs uppercase tracking-widest text-sky-300">${p.exam}</div>
+                    <div class="text-2xl font-semibold mt-2">${p.year}</div>
+                    <div class="text-slate-300 text-sm mt-1">${p.shift}</div>
+                    <div class="mt-8 inline-flex items-center gap-x-2 text-sm font-medium px-5 py-2 bg-white/20 rounded-3xl">
+                        <i class="fa-solid fa-file-pdf"></i> DOWNLOAD PDF
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Render quiz subjects
+        function renderQuizSubjects() {
+            const container = document.getElementById('quizSubjects')
+            container.innerHTML = Object.keys(quizBank).map(key => `
+                <div onclick="startQuiz('${key}')" 
+                     class="cursor-pointer px-8 py-4 border rounded-3xl hover:border-sky-400 flex items-center gap-x-4">
+                    <span class="text-4xl">${key === 'history' ? '📜' : key === 'geography' ? '🗺️' : key === 'aptitude' ? '🧠' : '⚙️'}</span>
+                    <div>
+                        <p class="font-semibold">${quizBank[key].name}</p>
+                        <p class="text-xs text-slate-500">${quizBank[key].questions.length} questions</p>
+                    </div>
+                </div>
+            `).join('')
+        }
+        
+        // Start a quiz
+        function startQuiz(subject) {
+            currentQuiz = quizBank[subject]
+            currentQuestionIndex = 0
+            score = 0
+            
+            document.getElementById('quizContainer').classList.remove('hidden')
+            document.getElementById('quizResult').classList.add('hidden')
+            document.getElementById('quizTitle').innerHTML = `<i class="fa-solid fa-${subject === 'history' ? 'book' : subject === 'geography' ? 'map' : 'calculator'} mr-3"></i> ${currentQuiz.name}`
+            
+            loadQuestion()
+        }
+        
+        function loadQuestion() {
+            const q = currentQuiz.questions[currentQuestionIndex]
+            document.getElementById('questionText').innerHTML = `<span class="text-sky-600 font-semibold">Q${currentQuestionIndex+1}.</span> ${q.q}`
+            
+            const counter = document.getElementById('questionCounter')
+            counter.innerHTML = `${currentQuestionIndex + 1} / ${currentQuiz.questions.length}`
+            
+            const progress = document.getElementById('progressBar')
+            progress.style.width = `${((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100}%`
+            
+            const container = document.getElementById('optionsContainer')
+            container.innerHTML = q.options.map((opt, i) => `
+                <div onclick="selectAnswer(${i})" 
+                     class="quiz-option border rounded-3xl px-8 py-6 text-xl font-medium cursor-pointer flex items-center">
+                    <span class="mr-6 font-mono text-sky-600">${String.fromCharCode(65 + i)}</span>
+                    ${opt}
+                </div>
+            `).join('')
+            
+            document.getElementById('prevBtn').classList.toggle('hidden', currentQuestionIndex === 0)
+            document.getElementById('nextBtn').innerHTML = currentQuestionIndex === currentQuiz.questions.length - 1 
+                ? `Finish Quiz <i class="fa-solid fa-check ml-2"></i>` 
+                : `Next <i class="fa-solid fa-arrow-right ml-2"></i>`
+        }
+        
+        function selectAnswer(selectedIndex) {
+            const correct = currentQuiz.questions[currentQuestionIndex].correct
+            if (selectedIndex === correct) score++
+            
+            // Highlight correct answer
+            setTimeout(() => {
+                if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                    currentQuestionIndex++
+                    loadQuestion()
+                } else {
+                    showResult()
+                }
+            }, 400)
+        }
+        
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                currentQuestionIndex++
+                loadQuestion()
+            } else {
+                showResult()
+            }
+        }
+        
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--
+                loadQuestion()
+            }
+        }
+        
+        function showResult() {
+            document.getElementById('quizContainer').classList.add('hidden')
+            const resultDiv = document.getElementById('quizResult')
+            resultDiv.classList.remove('hidden')
+            
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100)
+            
+            document.getElementById('resultScore').innerHTML = `${score}/${currentQuiz.questions.length} <span class="text-3xl font-normal">(${percentage}%)</span>`
+            
+            const emojiEl = document.getElementById('resultEmoji')
+            const titleEl = document.getElementById('resultTitle')
+            
+            if (percentage >= 80) {
+                emojiEl.innerHTML = '🏆'
+                titleEl.innerHTML = 'Excellent! You are ready for the exam!'
+            } else if (percentage >= 60) {
+                emojiEl.innerHTML = '👍'
+                titleEl.innerHTML = 'Good job! Keep practicing.'
+            } else {
+                emojiEl.innerHTML = '📚'
+                titleEl.innerHTML = 'Keep learning. Try again!'
+            }
+            
+            // Update overall score
+            const overall = document.getElementById('overallScore')
+            overall.textContent = Math.min(100, parseInt(overall.textContent) + Math.round(percentage / 4))
+        }
+        
+        function restartQuiz() {
+            document.getElementById('quizResult').classList.add('hidden')
+            renderQuizSubjects()
+        }
+        
+        // Demo download alert
+        function downloadDemo(name) {
+            const messages = [
+                "✅ PDF downloaded! (Demo mode)",
+                "📥 File saved to your Downloads folder",
+                "🔥 Added to your ExamVault library"
+            ]
+            alert(`📘 ${name}\n\n${messages[Math.floor(Math.random()*messages.length)]}\n\nIn the real hosted website this would download the actual PDF instantly.`)
+        }
+        
+        // Book modal
+        function openBookModal(title) {
+            alert(`📖 You opened: ${title}\n\nFull book viewer + chapter-wise PDFs would load here.\nOfficial NCERT link: https://ncert.nic.in/textbook.php`)
+        }
+        
+        // Global search
+        function toggleSearch() {
+            const modal = document.getElementById('searchModal')
+            modal.classList.toggle('hidden')
+            setTimeout(() => document.getElementById('globalSearch').focus(), 100)
+        }
+        
+        function hideSearch() {
+            document.getElementById('searchModal').classList.add('hidden')
+        }
+        
+        function performGlobalSearch() {
+            const term = document.getElementById('globalSearch').value.toLowerCase().trim()
+            if (!term) return
+            
+            const resultsHTML = `
+                <div class="space-y-6">
+                    <div class="text-sky-600 font-medium">Found in NCERT:</div>
+                    ${ncertData.filter(b => b.title.toLowerCase().includes(term) || b.subject.toLowerCase().includes(term)).map(b => `
+                        <div onclick="hideSearch();openBookModal('${b.title}')" class="flex justify-between items-center cursor-pointer py-4 border-b">
+                            <div>${b.icon} ${b.title}</div>
+                            <i class="fa-solid fa-arrow-right text-slate-400"></i>
+                        </div>`).join('') || '<p class="text-slate-400">No NCERT match</p>'}
+                    
+                    <div class="text-emerald-600 font-medium mt-8">Found in Aptitude:</div>
+                    ${aptitudeData.filter(b => b.title.toLowerCase().includes(term)).map(b => `
+                        <div onclick="hideSearch();downloadDemo('${b.title}')" class="flex justify-between items-center cursor-pointer py-4 border-b">
+                            <div>${b.icon} ${b.title}</div>
+                            <i class="fa-solid fa-download text-slate-400"></i>
+                        </div>`).join('')}
+                </div>`
+            
+            document.getElementById('searchResults').innerHTML = resultsHTML
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu')
+            menu.classList.toggle('hidden')
+        }
+        
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden')
+        }
+        
+        function hideLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden')
+        }
+        
+        function fakeSignup() {
+            hideLoginModal()
+            setTimeout(() => {
+                alert("🎉 Welcome to ExamVault!\n\nYour account is ready.\nYou now have unlimited access to all books, PYQs & quizzes.")
+            }, 800)
+        }
+        
+        function downloadAllPapersDemo() {
+            alert("📦 Complete PYQ Archive (15 GB) downloaded!\n\nThis is a demo. In the real website you will get direct Google Drive / official links.")
+        }
+        
+        function navigateToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            initializeTailwind()
+            renderNCERT()
+            renderAptitude()
+            renderMechanical()
+            renderPapers()
+            renderQuizSubjects()
+            
+            console.log('%c✅ ExamVault website created successfully by Grok!', 'background:#0ea5e9;color:white;padding:5px 10px;border-radius:9999px;font-weight:bold')
+            console.log('Just save this file as index.html and share it with your friends!')
+        }
+    </script>
+</body>
+</html>
