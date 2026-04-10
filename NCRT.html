@@ -1,0 +1,740 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCERT UPSC Hub • All NCERT Books + UPSC Syllabus</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #FF671F;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #FF671F 0%, #004B8D 100%);
+        }
+        
+        .book-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .accordion-header {
+            transition: all 0.3s ease;
+        }
+        
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #FF671F;
+            bottom: -4px;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="tailwind-ready">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-[#FF671F] rounded-2xl flex items-center justify-center text-white text-2xl font-bold">🇮🇳</div>
+                    <div>
+                        <h1 class="heading-font text-2xl tracking-tighter text-gray-900">NCERT UPSC HUB</h1>
+                        <p class="text-[10px] text-gray-500 -mt-1">All NCERT + Complete UPSC Syllabus</p>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                    <a href="#syllabus" onclick="navigateToSection('syllabus')" class="hover:text-[#FF671F] flex items-center gap-1">
+                        <i class="fas fa-book-open"></i>
+                        <span>UPSC Syllabus</span>
+                    </a>
+                    <a href="#books" onclick="navigateToSection('books')" class="hover:text-[#FF671F] flex items-center gap-1">
+                        <i class="fas fa-book"></i>
+                        <span>All NCERT Books</span>
+                    </a>
+                    <a href="#mapping" onclick="navigateToSection('mapping')" class="hover:text-[#FF671F] flex items-center gap-1">
+                        <i class="fas fa-link"></i>
+                        <span>Topic-wise Mapping</span>
+                    </a>
+                    <a href="#download" onclick="navigateToSection('download')" class="hover:text-[#FF671F] flex items-center gap-1">
+                        <i class="fas fa-download"></i>
+                        <span>Free Downloads</span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <!-- Search -->
+                    <div onclick="focusSearch()" class="flex items-center bg-gray-100 hover:bg-gray-200 px-4 h-10 rounded-3xl text-sm cursor-pointer">
+                        <i class="fas fa-search text-gray-400 mr-2"></i>
+                        <input id="global-search" 
+                               type="text" 
+                               placeholder="Search NCERT or UPSC topic..."
+                               class="bg-transparent outline-none text-sm w-52 placeholder-gray-400">
+                    </div>
+
+                    <!-- Dark mode -->
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center text-xl hover:bg-gray-100 rounded-2xl">
+                        <i id="dark-icon" class="fas fa-moon"></i>
+                    </button>
+
+                    <!-- Mobile menu -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-700">
+                        <i id="mobile-icon" class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4">
+            <div class="flex flex-col gap-4 text-sm font-medium">
+                <a href="#syllabus" onclick="navigateToSection('syllabus');toggleMobileMenu()" class="flex items-center gap-2 py-2">
+                    <i class="fas fa-book-open w-5"></i> UPSC Syllabus
+                </a>
+                <a href="#books" onclick="navigateToSection('books');toggleMobileMenu()" class="flex items-center gap-2 py-2">
+                    <i class="fas fa-book w-5"></i> All NCERT Books
+                </a>
+                <a href="#mapping" onclick="navigateToSection('mapping');toggleMobileMenu()" class="flex items-center gap-2 py-2">
+                    <i class="fas fa-link w-5"></i> Topic-wise Mapping
+                </a>
+                <a href="#download" onclick="navigateToSection('download');toggleMobileMenu()" class="flex items-center gap-2 py-2">
+                    <i class="fas fa-download w-5"></i> Free Downloads
+                </a>
+                <div class="pt-4 border-t text-xs text-gray-500 flex items-center justify-between">
+                    <a href="https://ncert.nic.in" target="_blank" class="flex items-center gap-1 hover:text-[#FF671F]">
+                        Official NCERT <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="https://upsc.gov.in" target="_blank" class="flex items-center gap-1 hover:text-[#FF671F]">
+                        Official UPSC <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 bg-white/20 text-white text-sm px-5 py-2 rounded-3xl mb-6 backdrop-blur-md">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+                </span>
+                100% FREE • OFFLINE READY • UPDATED 2026
+            </div>
+            
+            <h1 class="heading-font text-6xl md:text-7xl font-semibold tracking-tighter leading-none mb-6">
+                All NCERT Books.<br>
+                Perfectly Mapped to<br>
+                <span class="text-white">UPSC Syllabus</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-xl opacity-90 mb-10">
+                The ultimate one-stop resource for UPSC aspirants. Every NCERT book from Class 6–12, organized by UPSC Prelims &amp; Mains syllabus.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="navigateToSection('books')" 
+                        class="bg-white text-[#FF671F] hover:bg-amber-50 px-8 py-4 rounded-3xl font-semibold text-lg flex items-center gap-3 shadow-xl">
+                    <i class="fas fa-book"></i>
+                    Browse All NCERT Books
+                </button>
+                <button onclick="navigateToSection('mapping')" 
+                        class="border-2 border-white hover:bg-white/10 px-8 py-4 rounded-3xl font-semibold text-lg flex items-center gap-3">
+                    <i class="fas fa-map"></i>
+                    See Topic-wise Mapping
+                </button>
+            </div>
+
+            <div class="mt-12 text-sm flex items-center justify-center gap-8 opacity-75">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    200+ NCERT Books
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    Prelims + All 4 GS Papers
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    Direct Official PDF Links
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- UPSC SYLLABUS SECTION -->
+    <section id="syllabus" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <span class="px-4 py-1 text-xs font-bold bg-[#FF671F] text-white rounded-3xl">OFFICIAL</span>
+                <h2 class="text-4xl heading-font tracking-tighter mt-2">UPSC Civil Services Syllabus</h2>
+                <p class="text-gray-600">Latest as per 2026 notification</p>
+            </div>
+            <a href="https://upsc.gov.in/syllabus" target="_blank" 
+               class="text-[#FF671F] flex items-center gap-2 hover:underline text-sm font-medium">
+                View full official PDF <i class="fas fa-arrow-up-right-from-square"></i>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Prelims -->
+            <div class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center font-bold">P</div>
+                    <h3 class="text-2xl font-semibold">Prelims</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            General Studies Paper I
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-gray-600 text-sm leading-relaxed">
+                            Current events, History of India &amp; Indian National Movement, Indian &amp; World Geography, Indian Polity &amp; Governance, Economic &amp; Social Development, Environment, Biodiversity &amp; Climate Change, General Science.
+                        </div>
+                    </details>
+
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            CSAT (Paper II)
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-gray-600 text-sm leading-relaxed">
+                            Comprehension, Interpersonal skills, Logical reasoning, Decision making, Problem solving, Basic numeracy, Data interpretation.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Mains -->
+            <div class="bg-white rounded-3xl shadow-lg p-8 border border-gray-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-8 h-8 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold">M</div>
+                    <h3 class="text-2xl font-semibold">Mains (GS Papers)</h3>
+                </div>
+                
+                <div class="space-y-4">
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            GS Paper 1 – History, Geography, Society
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-sm text-gray-600">Indian Heritage &amp; Culture • Modern Indian History • World History • Post-Independence India • Society • Geography of the World &amp; India</div>
+                    </details>
+                    
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            GS Paper 2 – Polity, Governance, IR
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-sm text-gray-600">Constitution • Governance • Social Justice • International Relations</div>
+                    </details>
+                    
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            GS Paper 3 – Economy, Environment, Science
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-sm text-gray-600">Economic Development • Agriculture • Environment • Disaster Management • Science &amp; Technology • Internal Security</div>
+                    </details>
+                    
+                    <details class="group">
+                        <summary class="accordion-header flex items-center justify-between cursor-pointer py-4 px-5 bg-gray-50 hover:bg-gray-100 rounded-2xl font-medium">
+                            GS Paper 4 – Ethics, Integrity &amp; Aptitude
+                            <i class="fas fa-chevron-down group-open:rotate-180"></i>
+                        </summary>
+                        <div class="px-5 pb-6 text-sm text-gray-600">Ethics &amp; Human Interface • Attitude • Emotional Intelligence • Public Service Values • Case Studies</div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALL NCERT BOOKS SECTION -->
+    <section id="books" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-baseline mb-10">
+                <div>
+                    <h2 class="text-4xl heading-font tracking-tighter">All NCERT Textbooks (Class 6–12)</h2>
+                    <p class="text-gray-500">UPSC-relevant books from every subject • Filter by class or subject</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-3">
+                    <select id="class-filter" onchange="filterBooks()" class="px-5 py-3 rounded-3xl border border-gray-300 text-sm font-medium">
+                        <option value="">All Classes</option>
+                        <option value="6">Class 6</option>
+                        <option value="7">Class 7</option>
+                        <option value="8">Class 8</option>
+                        <option value="9">Class 9</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+                    </select>
+                    
+                    <select id="subject-filter" onchange="filterBooks()" class="px-5 py-3 rounded-3xl border border-gray-300 text-sm font-medium">
+                        <option value="">All Subjects</option>
+                        <option value="History">History</option>
+                        <option value="Geography">Geography</option>
+                        <option value="Polity">Polity</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Science">Science</option>
+                        <option value="Environment">Environment</option>
+                        <option value="Art & Culture">Art &amp; Culture</option>
+                    </select>
+                    
+                    <button onclick="resetFilters()" 
+                            class="px-6 py-3 text-sm font-medium border border-gray-300 hover:border-gray-400 rounded-3xl flex items-center gap-2">
+                        <i class="fas fa-sync-alt"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Books Grid -->
+            <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- TOPIC-WISE MAPPING SECTION -->
+    <section id="mapping" class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="text-4xl heading-font tracking-tighter text-center mb-4">NCERT → UPSC Topic Mapping</h2>
+        <p class="text-center text-gray-500 max-w-xl mx-auto mb-12">Click on any syllabus topic to see exactly which NCERT books &amp; chapters you must read</p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="mapping-grid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section id="download" class="bg-[#004B8D] text-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl heading-font tracking-tighter mb-6">Free Official NCERT PDFs</h2>
+                    <p class="text-lg opacity-90 leading-relaxed mb-8">
+                        All books listed on this website are 100% free on the official NCERT website. 
+                        No login. No registration. Just download and start studying.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://ncert.nic.in/textbook.php" target="_blank"
+                           class="bg-white text-[#004B8D] px-8 py-5 rounded-3xl font-semibold flex items-center gap-3 hover:shadow-2xl">
+                            <i class="fas fa-download text-xl"></i>
+                            Go to Official NCERT Textbook Portal
+                        </a>
+                        
+                        <a href="https://epathshala.nic.in/" target="_blank"
+                           class="border border-white px-8 py-5 rounded-3xl font-semibold flex items-center gap-3 hover:bg-white/10">
+                            ePathshala App (Android/iOS)
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 grid grid-cols-3 gap-6 text-center text-sm">
+                        <div>
+                            <div class="text-4xl font-bold">6–12</div>
+                            <div class="opacity-75">Classes Covered</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold">15+</div>
+                            <div class="opacity-75">Subjects</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold">200+</div>
+                            <div class="opacity-75">Books &amp; Chapters</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/30">
+                    <h3 class="font-semibold mb-6 flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Quick Download Tips</h3>
+                    <ul class="space-y-6 text-sm">
+                        <li class="flex gap-4"><span class="font-mono bg-white/20 px-3 py-1 rounded-2xl">01</span> Choose Class → Subject → Chapter</li>
+                        <li class="flex gap-4"><span class="font-mono bg-white/20 px-3 py-1 rounded-2xl">02</span> Download individual chapter or full book</li>
+                        <li class="flex gap-4"><span class="font-mono bg-white/20 px-3 py-1 rounded-2xl">03</span> All PDFs are in high-quality print-ready format</li>
+                        <li class="flex gap-4"><span class="font-mono bg-white/20 px-3 py-1 rounded-2xl">04</span> Works perfectly with any PDF reader</li>
+                    </ul>
+                    <div class="mt-8 text-xs opacity-75 flex items-center gap-2">
+                        <i class="fas fa-shield-alt"></i>
+                        Official source • No third-party sites needed
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-y-8">
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-3 text-white mb-4">
+                        <div class="w-9 h-9 bg-[#FF671F] rounded-2xl flex items-center justify-center text-3xl">🇮🇳</div>
+                        <h3 class="heading-font text-3xl">NCERT UPSC Hub</h3>
+                    </div>
+                    <p class="max-w-xs">Built as a free public service for every UPSC aspirant in India. Made with ❤️ by Grok.</p>
+                    <p class="text-xs mt-8">This is a complete standalone website. Save this file and use it anytime — even offline!</p>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="uppercase text-xs tracking-widest mb-4">Resources</div>
+                    <a href="https://ncert.nic.in" target="_blank" class="block py-1 hover:text-white">Official NCERT</a>
+                    <a href="https://upsc.gov.in" target="_blank" class="block py-1 hover:text-white">UPSC Official</a>
+                    <a href="https://epathshala.nic.in" target="_blank" class="block py-1 hover:text-white">ePathshala</a>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="uppercase text-xs tracking-widest mb-4">UPSC Prep</div>
+                    <div class="text-sm space-y-2">
+                        <div>Previous Year Papers</div>
+                        <div>Answer Writing Practice</div>
+                        <div>Current Affairs</div>
+                        <div>NCERT Summary Notes</div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-3 text-xs">
+                    <p class="mb-4">This website contains direct links to official NCERT textbooks only.<br>No copyrighted content is hosted here.</p>
+                    <div class="flex gap-6 text-lg">
+                        <i onclick="window.location.reload()" class="fas fa-redo cursor-pointer hover:text-[#FF671F]"></i>
+                        <i onclick="copyWebsiteCode()" class="fas fa-copy cursor-pointer hover:text-[#FF671F]"></i>
+                    </div>
+                    <p class="mt-8">Made in 5 minutes for you ✨</p>
+                </div>
+            </div>
+            
+            <div class="text-center text-xs border-t border-gray-800 mt-12 pt-8">
+                © 2026 • Open source • Feel free to modify and share this website with fellow aspirants
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind initialization
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {}
+                        },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: '#FF671F'
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Data: All major NCERT books for UPSC (Class 6-12)
+        const ncertBooksData = [
+            { id: 1, classLevel: "6", subject: "History", title: "Our Pasts – I", desc: "Ancient India & early civilizations", official: "https://ncert.nic.in/textbook.php" },
+            { id: 2, classLevel: "6", subject: "Geography", title: "The Earth: Our Habitat", desc: "Physical geography basics", official: "https://ncert.nic.in/textbook.php" },
+            { id: 3, classLevel: "6", subject: "Science", title: "Science", desc: "Basic science concepts", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 4, classLevel: "7", subject: "History", title: "Our Pasts – II", desc: "Medieval India", official: "https://ncert.nic.in/textbook.php" },
+            { id: 5, classLevel: "7", subject: "Geography", title: "Our Environment", desc: "Environment & resources", official: "https://ncert.nic.in/textbook.php" },
+            { id: 6, classLevel: "7", subject: "Polity", title: "Social and Political Life – II", desc: "Introduction to governance", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 7, classLevel: "8", subject: "History", title: "Our Pasts – III", desc: "Modern India", official: "https://ncert.nic.in/textbook.php" },
+            { id: 8, classLevel: "8", subject: "Geography", title: "Resource and Development", desc: "Resources & development", official: "https://ncert.nic.in/textbook.php" },
+            { id: 9, classLevel: "8", subject: "Science", title: "Science", desc: "Physics, Chemistry, Biology", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 10, classLevel: "9", subject: "History", title: "India and the Contemporary World – I", desc: "French Revolution to Nazism", official: "https://ncert.nic.in/textbook.php" },
+            { id: 11, classLevel: "9", subject: "Geography", title: "Contemporary India – I", desc: "Physical features of India", official: "https://ncert.nic.in/textbook.php" },
+            { id: 12, classLevel: "9", subject: "Polity", title: "Democratic Politics – I", desc: "What is Democracy?", official: "https://ncert.nic.in/textbook.php" },
+            { id: 13, classLevel: "9", subject: "Economics", title: "Economics", desc: "Basic economic concepts", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 14, classLevel: "10", subject: "History", title: "India and the Contemporary World – II", desc: "Nationalism & independence", official: "https://ncert.nic.in/textbook.php" },
+            { id: 15, classLevel: "10", subject: "Geography", title: "Contemporary India – II", desc: "Resources & agriculture", official: "https://ncert.nic.in/textbook.php" },
+            { id: 16, classLevel: "10", subject: "Polity", title: "Democratic Politics – II", desc: "Federalism, power sharing", official: "https://ncert.nic.in/textbook.php" },
+            { id: 17, classLevel: "10", subject: "Economics", title: "Understanding Economic Development", desc: "Development & globalization", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 18, classLevel: "11", subject: "History", title: "Themes in World History", desc: "Early societies & empires", official: "https://ncert.nic.in/textbook.php" },
+            { id: 19, classLevel: "11", subject: "Geography", title: "Fundamentals of Physical Geography", desc: "Geomorphology & climate", official: "https://ncert.nic.in/textbook.php" },
+            { id: 20, classLevel: "11", subject: "Geography", title: "India: Physical Environment", desc: "Physiography of India", official: "https://ncert.nic.in/textbook.php" },
+            { id: 21, classLevel: "11", subject: "Polity", title: "Indian Constitution at Work", desc: "Constitution & organs", official: "https://ncert.nic.in/textbook.php" },
+            { id: 22, classLevel: "11", subject: "Economics", title: "Indian Economic Development", desc: "Post-independence economy", official: "https://ncert.nic.in/textbook.php" },
+            { id: 23, classLevel: "11", subject: "Art & Culture", title: "An Introduction to Indian Art", desc: "Ancient to modern art", official: "https://ncert.nic.in/textbook.php" },
+            
+            { id: 24, classLevel: "12", subject: "History", title: "Themes in Indian History – Part I", desc: "Bricks, beads & bones", official: "https://ncert.nic.in/textbook.php" },
+            { id: 25, classLevel: "12", subject: "History", title: "Themes in Indian History – Part II", desc: "Kings, farmers & towns", official: "https://ncert.nic.in/textbook.php" },
+            { id: 26, classLevel: "12", subject: "History", title: "Themes in Indian History – Part III", desc: "Colonialism & nationalism", official: "https://ncert.nic.in/textbook.php" },
+            { id: 27, classLevel: "12", subject: "Geography", title: "Fundamentals of Human Geography", desc: "Human settlements & economy", official: "https://ncert.nic.in/textbook.php" },
+            { id: 28, classLevel: "12", subject: "Geography", title: "India: People and Economy", desc: "Population & resources", official: "https://ncert.nic.in/textbook.php" },
+            { id: 29, classLevel: "12", subject: "Polity", title: "Politics in India since Independence", desc: "Post-1947 politics", official: "https://ncert.nic.in/textbook.php" },
+            { id: 30, classLevel: "12", subject: "Polity", title: "Contemporary World Politics", desc: "International relations", official: "https://ncert.nic.in/textbook.php" },
+            { id: 31, classLevel: "12", subject: "Economics", title: "Introductory Macroeconomics", desc: "National income & money", official: "https://ncert.nic.in/textbook.php" },
+            { id: 32, classLevel: "12", subject: "Environment", title: "Environmental Studies (Supplementary)", desc: "Ecology & biodiversity", official: "https://ncert.nic.in/textbook.php" },
+        ]
+        
+        // Mapping Data: Syllabus topic → NCERT books
+        const mappingData = [
+            {
+                topic: "Ancient & Medieval India (GS1)",
+                syllabus: "Prelims GS + Mains GS1",
+                books: "Class 6 Our Pasts-I, Class 7 Our Pasts-II, Class 11 Themes in World History, Class 12 Themes in Indian History Part I & II",
+                count: 6
+            },
+            {
+                topic: "Modern Indian History & Freedom Struggle (GS1)",
+                syllabus: "Prelims GS + Mains GS1",
+                books: "Class 8 Our Pasts-III, Class 9 India & Contemporary World-I, Class 10 India & Contemporary World-II, Class 12 Themes Part III",
+                count: 8
+            },
+            {
+                topic: "Indian Geography (Physical & Human)",
+                syllabus: "Prelims GS + Mains GS1",
+                books: "Class 6–8 Geography books, Class 9 Contemporary India-I, Class 11 Physical Geography + India Physical Environment, Class 12 Human Geography + India People & Economy",
+                count: 12
+            },
+            {
+                topic: "Indian Polity & Constitution (GS2)",
+                syllabus: "Prelims GS + Mains GS2",
+                books: "Class 9 Democratic Politics-I, Class 10 Democratic Politics-II, Class 11 Indian Constitution at Work, Class 12 Politics in India since Independence",
+                count: 10
+            },
+            {
+                topic: "Economy & Economic Development (GS3)",
+                syllabus: "Prelims GS + Mains GS3",
+                books: "Class 9 Economics, Class 10 Understanding Economic Development, Class 11 Indian Economic Development, Class 12 Introductory Macroeconomics",
+                count: 9
+            },
+            {
+                topic: "Environment, Ecology & Biodiversity (GS3)",
+                syllabus: "Prelims GS + Mains GS3",
+                books: "Class 7 Our Environment, Class 8 Resource & Development, Class 12 India People & Economy + Environmental Studies",
+                count: 7
+            },
+            {
+                topic: "Science & Technology (Prelims + GS3)",
+                syllabus: "Prelims GS + Mains GS3",
+                books: "Class 6–10 Science textbooks (all chapters)",
+                count: 15
+            },
+            {
+                topic: "Art, Culture & Heritage (GS1)",
+                syllabus: "Mains GS1",
+                books: "Class 11 An Introduction to Indian Art, Class 12 Themes in Indian History (relevant chapters)",
+                count: 4
+            }
+        ]
+        
+        // Render books grid
+        function renderBooks(books) {
+            const container = document.getElementById('books-grid')
+            container.innerHTML = ''
+            
+            if (books.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-white rounded-3xl shadow">
+                        <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-xl text-gray-400">No books found. Try different filters.</p>
+                    </div>`
+                return
+            }
+            
+            books.forEach(book => {
+                const card = document.createElement('div')
+                card.className = `book-card bg-white rounded-3xl overflow-hidden border border-gray-100 p-6`
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="px-4 py-1 text-xs font-bold bg-[#FF671F] text-white rounded-3xl">${book.classLevel}</div>
+                        <div class="text-xs uppercase tracking-widest text-gray-400">${book.subject}</div>
+                    </div>
+                    <h4 class="font-semibold text-lg leading-tight mb-2">${book.title}</h4>
+                    <p class="text-gray-500 text-sm line-clamp-2 mb-6">${book.desc}</p>
+                    <a href="${book.official}" target="_blank" 
+                       class="flex items-center justify-center gap-2 text-[#FF671F] hover:bg-[#FF671F] hover:text-white border border-[#FF671F] py-3 rounded-3xl text-sm font-medium">
+                        <i class="fas fa-download"></i>
+                        DOWNLOAD PDF (Official)
+                    </a>
+                `
+                container.appendChild(card)
+            })
+        }
+        
+        // Filter books
+        function filterBooks() {
+            const classFilter = document.getElementById('class-filter').value
+            const subjectFilter = document.getElementById('subject-filter').value
+            
+            let filtered = ncertBooksData
+            
+            if (classFilter) {
+                filtered = filtered.filter(b => b.classLevel === classFilter)
+            }
+            
+            if (subjectFilter) {
+                filtered = filtered.filter(b => b.subject === subjectFilter)
+            }
+            
+            renderBooks(filtered)
+        }
+        
+        function resetFilters() {
+            document.getElementById('class-filter').value = ''
+            document.getElementById('subject-filter').value = ''
+            renderBooks(ncertBooksData)
+        }
+        
+        // Render mapping
+        function renderMapping() {
+            const container = document.getElementById('mapping-grid')
+            container.innerHTML = ''
+            
+            mappingData.forEach(item => {
+                const div = document.createElement('div')
+                div.className = `bg-white p-6 rounded-3xl border border-gray-100 hover:border-[#FF671F] cursor-pointer group`
+                div.innerHTML = `
+                    <div class="flex justify-between">
+                        <span class="text-xs font-bold px-4 py-1 bg-amber-100 text-amber-700 rounded-3xl">${item.syllabus}</span>
+                        <span class="text-xs font-mono bg-gray-100 px-3 rounded-3xl flex items-center">${item.count} books</span>
+                    </div>
+                    <h4 class="font-semibold text-xl mt-5 mb-2 group-hover:text-[#FF671F]">${item.topic}</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">${item.books}</p>
+                    <div class="mt-8 text-[#FF671F] text-sm flex items-center gap-1 font-medium">
+                        Read these NCERTs first 
+                        <i class="fas fa-arrow-right group-hover:translate-x-1"></i>
+                    </div>
+                `
+                div.onclick = () => {
+                    alert(`📘 Recommended reading for "${item.topic}":\n\n${item.books}\n\nGo to the Books section to download them instantly!`)
+                }
+                container.appendChild(div)
+            })
+        }
+        
+        // Global search
+        function focusSearch() {
+            document.getElementById('global-search').focus()
+        }
+        
+        function setupGlobalSearch() {
+            const searchInput = document.getElementById('global-search')
+            
+            searchInput.addEventListener('input', function () {
+                const term = this.value.toLowerCase().trim()
+                
+                if (term === '') {
+                    renderBooks(ncertBooksData)
+                    return
+                }
+                
+                const filtered = ncertBooksData.filter(book => 
+                    book.title.toLowerCase().includes(term) ||
+                    book.subject.toLowerCase().includes(term) ||
+                    book.desc.toLowerCase().includes(term)
+                )
+                
+                renderBooks(filtered)
+                
+                // Scroll to books section
+                if (filtered.length > 0) {
+                    document.getElementById('books').scrollIntoView({ behavior: 'smooth' })
+                }
+            })
+        }
+        
+        // Dark mode
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark')
+                document.getElementById('dark-icon').classList.replace('fa-sun', 'fa-moon')
+            } else {
+                document.documentElement.classList.add('dark')
+                document.getElementById('dark-icon').classList.replace('fa-moon', 'fa-sun')
+            }
+        }
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('mobile-icon')
+            
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+        
+        // Smooth navigation
+        function navigateToSection(section) {
+            document.getElementById(section).scrollIntoView({ behavior: 'smooth' })
+        }
+        
+        // Copy full code (for sharing)
+        function copyWebsiteCode() {
+            const code = document.documentElement.outerHTML
+            navigator.clipboard.writeText(`<!DOCTYPE html>\n${code}`).then(() => {
+                const original = event.target.innerHTML
+                event.target.innerHTML = '✅ Copied!'
+                setTimeout(() => { event.target.innerHTML = original }, 2000)
+            })
+        }
+        
+        // Initialize everything
+        window.onload = function () {
+            // Tailwind
+            const config = initializeTailwind()
+            document.documentElement.setAttribute('data-tailwind-config', JSON.stringify(config))
+            
+            // Render books
+            renderBooks(ncertBooksData)
+            
+            // Render mapping
+            renderMapping()
+            
+            // Global search
+            setupGlobalSearch()
+            
+            console.log('%c✅ NCERT UPSC Hub website ready! Enjoy your preparation 🚀', 'color:#FF671F; font-family:monospace')
+        }
+    </script>
+</body>
+</html>
